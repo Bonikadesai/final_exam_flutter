@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,7 +6,6 @@ import 'package:get/get.dart';
 import '../../utils/global.dart';
 
 class HomePage extends StatefulWidget {
-  //User? user = Get.arguments as User;
   HomePage({super.key});
 
   @override
@@ -16,138 +16,43 @@ class _HomePageState extends State<HomePage> {
   Map map = {
     "$a": "$a",
   };
-
+  User? user = Get.arguments as User;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldkey,
       drawer: Drawer(
-          // child: Column(
-          //   mainAxisSize: MainAxisSize.min,
-          //   children: [
-          //     const SizedBox(
-          //       height: 70,
-          //     ),
-          //     CircleAvatar(
-          //       radius: 60,
-          //       foregroundImage: (user!.isAnonymous)
-          //           ? const AssetImage("assets/images/user.png") as ImageProvider
-          //           : NetworkImage("${user!.photoURL}"),
-          //     ),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     const Divider(),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     // (user!.isAnonymous)
-          //     //     ? const Text("")
-          //     //     : (user.displayName == null)
-          //     //         ? const Text("")
-          //     //         : Text("${user.displayName}"),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Text((user!.isAnonymous)
-          //             ? ""
-          //             : (user?.displayName == null)
-          //                 ? ""
-          //                 : "Name: "),
-          //         // const Text("Name :"),
-          //         Text((user!.isAnonymous)
-          //                 ? ""
-          //                 : (user?.displayName == null)
-          //                     ? ""
-          //                     : "johndeo@gmail.com"
-          //             // : FirebaseAuthHelper.firebaseAuth.currentUser?.email
-          //             //     ?.split('@')[0] as String,
-          //             ),
-          //       ],
-          //     ),
-          //
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Text((user!.isAnonymous) ? "" : "E-mail: "),
-          //         Text((user!.isAnonymous) ? "" : "${user!.email}")
-          //       ],
-          //     ),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Text((user!.isAnonymous)
-          //             ? ""
-          //             : (user?.displayName == null)
-          //                 ? ""
-          //                 : "PhoneNumber:  "),
-          //         Text((user!.isAnonymous)
-          //             ? ""
-          //             : (user?.phoneNumber == null)
-          //                 ? ""
-          //                 : "${user!.phoneNumber}"),
-          //       ],
-          //     ),
-          //     const SizedBox(
-          //       height: 10,
-          //     ),
-          //     (user!.isAnonymous)
-          //         ? const ListTile()
-          //         : ListTile(
-          //             onTap: () {
-          //               Get.toNamed('/update_emailpage');
-          //             },
-          //             title: const Text(
-          //               "Update E-mail",
-          //               style: TextStyle(fontWeight: FontWeight.w500),
-          //             ),
-          //             trailing: const Icon(Icons.email_outlined),
-          //           ),
-          //     (user!.isAnonymous)
-          //         ? const ListTile()
-          //         : ListTile(
-          //             onTap: () {
-          //               Get.toNamed('/update_passwordpage');
-          //             },
-          //             title: const Text(
-          //               "Update Password",
-          //               style: TextStyle(fontWeight: FontWeight.w500),
-          //             ),
-          //             trailing: const Icon(Icons.password),
-          //           ),
-          //     (user!.isAnonymous)
-          //         ? const ListTile()
-          //         : ListTile(
-          //             onTap: () {
-          //               Get.toNamed('/delete_accountpage');
-          //             },
-          //             title: const Text(
-          //               "Delete Account",
-          //               style: TextStyle(fontWeight: FontWeight.w500),
-          //             ),
-          //             trailing: const Icon(Icons.delete),
-          //           ),
-          //     ListTile(
-          //       title: const Text(
-          //         "Theme Mode",
-          //         style: TextStyle(fontWeight: FontWeight.w500),
-          //       ),
-          //       // trailing: Switch(
-          //       //   value: themeController.darkModeModel.isdark,
-          //       //   onChanged: (val) {
-          //       //     setState(() {
-          //       //       themeController.darkThemeUDF(val: val);
-          //       //     });
-          //       //     // Get.changeTheme(Get.isDarkMode
-          //       //     //     ? ThemeData.light()
-          //       //     //     : ThemeData.dark());
-          //       //     print("2");
-          //       //   },
-          //       // ),
-          //     ),
-          //   ],
-          // ),
-          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(
+              height: 70,
+            ),
+            CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage("assets/dpimage.png"),
+                foregroundImage: AssetImage("assets/dpimage.png")),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Name: boni",
+              style: TextStyle(fontSize: 20),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Text(
+              "Email: boni@gmail.com",
+              style: TextStyle(fontSize: 20),
+            ),
+            const Divider(),
+            const SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         foregroundColor: Colors.white,
         actions: [
@@ -254,11 +159,48 @@ class _HomePageState extends State<HomePage> {
       body: SingleChildScrollView(
         child: Column(
           children: map.entries.map((e) {
-            return Padding(
-              padding: const EdgeInsets.all(10),
-              child: Text(
-                e.key,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+            return Card(
+              child: Padding(
+                padding: const EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "i am flutter developer",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "9:39 PM",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Recently flutter completed",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.w500),
+                        ),
+                        Text(
+                          "9:47 PM",
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             );
           }).toList(),
